@@ -1,0 +1,22 @@
+Simple Vagrantfile for setting up a Percona XtraDB Cluster with 3 nodes and a HAProxy in front
+
+
+'vagrant up'
+This will start all 4 VMs, the first VM is the haproxy one. As soon as that one is running, you can connect to http://localhost:8080 (user `admin`, pass `admin`) to see the status of the DB Nodes
+
+'vagrant destroy'
+Shut all machines down
+
+Vagrant machine names are 
+node1,node2,node3,haproxy
+
+
+If everything is running, you should be able to connect via localhost:3306 to the XtraDB Cluster via haproxy. (ToDo: there's no user that has access... 'vagrant ssh node1', mysql with user root and no password, create one...)
+
+
+
+With vagrant you can also control a single machine: 'vagrant destroy node3' 
+
+In the current setup you have to be careful if you're destroying node1, since it will always be installed with an empty "wsrep_cluster_address" (-> doesn't join a cluster). If you destroy and up node1 make sure to change the address manually.
+
+
